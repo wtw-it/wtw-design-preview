@@ -22,7 +22,7 @@ const EXTRAS = [
 ];
 
 /** Installatie per verdieping — toont in offerte als aparte regel. */
-const INSTALL_PER_FLOOR = 1800;
+const INSTALL_PER_FLOOR = 2200;
 
 function eur(n: number): string {
     return `€ ${n.toLocaleString('nl-NL', { minimumFractionDigits: 0, maximumFractionDigits: 0 })},-`;
@@ -167,9 +167,6 @@ export default function ConfiguratorPreview() {
                         );
                     })}
                 </div>
-                <p className="text-[11px] text-ink-500 mt-2 px-1">
-                    {eur(INSTALL_PER_FLOOR)} per verdieping · arbeid + materiaal · excl. ventielen
-                </p>
             </section>
 
             {/* Vloer-keuze */}
