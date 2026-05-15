@@ -126,3 +126,146 @@ body {
     border-radius: 18px;
     overflow: hidden;
 }
+
+/* ============================================================================
+ * Bedankt-pagina — 2026 verse-lucht ademend orb-systeem
+ * Drie staggered aura-pulses + ademhalings-cycle van 4.5s op het core-icoon.
+ * Floating particles geven gevoel van zuurstof-moleculen die opstijgen.
+ * ========================================================================= */
+
+.orb-wrapper {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.orb-core {
+    position: relative;
+    z-index: 4;
+    width: 92px;
+    height: 92px;
+    border-radius: 9999px;
+    background: radial-gradient(circle at 30% 30%, #FFFFFF 0%, #ECFDF5 55%, #D1FAE5 100%);
+    border: 1px solid var(--color-wtw-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 0 0 6px var(--color-wtw-glow),
+        0 22px 48px -10px rgba(16, 185, 129, 0.48),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    animation: orb-breathe 4.5s ease-in-out infinite;
+}
+
+.orb-aura {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 9999px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.orb-aura-1 {
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.32), transparent 70%);
+    animation: orb-pulse 4.5s ease-in-out infinite;
+    z-index: 3;
+}
+
+.orb-aura-2 {
+    width: 160px;
+    height: 160px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.20), transparent 70%);
+    animation: orb-pulse 4.5s ease-in-out infinite;
+    animation-delay: 0.7s;
+    z-index: 2;
+}
+
+.orb-aura-3 {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.10), transparent 70%);
+    animation: orb-pulse 4.5s ease-in-out infinite;
+    animation-delay: 1.4s;
+    z-index: 1;
+}
+
+@keyframes orb-breathe {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.06); }
+}
+
+@keyframes orb-pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.65; }
+    50%      { transform: translate(-50%, -50%) scale(1.10); opacity: 1; }
+}
+
+/* Verse-lucht deeltjes — drijven langzaam omhoog */
+.air-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95), rgba(16, 185, 129, 0.35) 55%, transparent 80%);
+    filter: blur(0.5px);
+    animation: particle-float 14s linear infinite;
+    opacity: 0;
+}
+
+.particle-1 { left: 8%;  bottom: -16px; animation-delay: 0s;    animation-duration: 14s; width: 10px; height: 10px; }
+.particle-2 { left: 22%; bottom: -16px; animation-delay: 2.6s;  animation-duration: 17s; width: 6px;  height: 6px;  }
+.particle-3 { left: 38%; bottom: -16px; animation-delay: 5.1s;  animation-duration: 13s; width: 12px; height: 12px; }
+.particle-4 { left: 55%; bottom: -16px; animation-delay: 1.4s;  animation-duration: 19s; width: 7px;  height: 7px;  }
+.particle-5 { left: 72%; bottom: -16px; animation-delay: 7.8s;  animation-duration: 15s; width: 9px;  height: 9px;  }
+.particle-6 { left: 88%; bottom: -16px; animation-delay: 9.5s;  animation-duration: 16s; width: 5px;  height: 5px;  }
+.particle-7 { left: 48%; bottom: -16px; animation-delay: 11.2s; animation-duration: 18s; width: 11px; height: 11px; }
+.particle-8 { left: 64%; bottom: -16px; animation-delay: 3.7s;  animation-duration: 14s; width: 8px;  height: 8px;  }
+
+@keyframes particle-float {
+    0%   { transform: translate3d(0, 0, 0)          scale(0.9); opacity: 0; }
+    10%  { opacity: 0.75; }
+    50%  { transform: translate3d(18px, -50vh, 0)   scale(1.2); opacity: 0.55; }
+    90%  { opacity: 0.30; }
+    100% { transform: translate3d(-22px, -100vh, 0) scale(0.7); opacity: 0; }
+}
+
+/* Email-logo gloed — zachte radial achter het WTW-logo in de mail */
+.logo-glow {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo-glow::before {
+    content: '';
+    position: absolute;
+    inset: -28px -56px;
+    background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.28) 0%, transparent 65%);
+    z-index: 0;
+    pointer-events: none;
+}
+.logo-glow > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Respecteer prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    .orb-core,
+    .orb-aura,
+    .particle {
+        animation: none;
+    }
+}

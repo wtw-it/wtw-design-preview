@@ -30,8 +30,10 @@ function EmailBody() {
         <div className="bg-white" style={{ fontFamily: 'var(--font-sans)' }}>
             <div className="px-6 py-10 max-w-[500px] mx-auto text-center">
 
-                {/* Logo */}
-                <img src="/wtw-logo.jpg" alt="WTW.nl" className="h-10 mx-auto mb-8" />
+                {/* Logo — groter + zachtgroene radial-gloed erachter */}
+                <div className="logo-glow mb-9">
+                    <img src="/wtw-logo.jpg" alt="WTW.nl" className="h-16 mx-auto" />
+                </div>
 
                 {/* Hero */}
                 <h1 className="text-2xl font-bold text-ink-900 tracking-tight">Bedankt, Moncif.</h1>
@@ -42,7 +44,7 @@ function EmailBody() {
 
                 {/* PDF-cue ipv bedrag-blok — leidt naar de bijgevoegde offerte */}
                 <div className="mt-10 mb-8 rounded-2xl border border-wtw-200 bg-wtw-50/60 px-6 py-7 text-left flex items-start gap-3"
-                     style={{ boxShadow: 'var(--shadow-glow)' }}>
+                     style={{ boxShadow: 'var(--shadow-glow-strong)' }}>
                     <div className="w-10 h-10 rounded-xl bg-white border border-wtw-200 flex items-center justify-center flex-shrink-0">
                         <FileText className="w-5 h-5 text-wtw-700" strokeWidth={1.5} />
                     </div>
@@ -65,7 +67,7 @@ function EmailBody() {
                     style={{
                         background: 'var(--color-wtw-50)',
                         border: '1px solid var(--color-wtw-200)',
-                        boxShadow: 'var(--shadow-glow)',
+                        boxShadow: 'var(--shadow-glow-strong)',
                     }}
                 >
                     <div className="flex items-start gap-2.5">
