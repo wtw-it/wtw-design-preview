@@ -85,14 +85,22 @@ export default function PdfPreview() {
                                 <td className="text-right text-ink-900 tabular">€ 500,-</td>
                             </tr>
 
-                            {/* Installatie-component */}
+                            {/* Installatie-component — materiaal + arbeid apart */}
                             <tr className="border-b border-ink-100">
                                 <td className="py-2.5">
-                                    <p className="text-ink-900 font-medium">Installatie (2 verdiepingen)</p>
-                                    <p className="text-[9px] text-ink-500 mt-0.5">Arbeid + materiaal · all-in, excl. ventielen</p>
+                                    <p className="text-ink-900 font-medium">Installatie — materiaal (2 verdiepingen)</p>
+                                    <p className="text-[9px] text-ink-500 mt-0.5">Kanalen, ophang, montagemateriaal · excl. ventielen</p>
                                 </td>
                                 <td className="text-right text-ink-500">1</td>
-                                <td className="text-right text-ink-900 tabular">€ 3.600,-</td>
+                                <td className="text-right text-ink-900 tabular">€ 1.750,-</td>
+                            </tr>
+                            <tr className="border-b border-ink-100">
+                                <td className="py-2.5">
+                                    <p className="text-ink-900 font-medium">Installatie — arbeid (2 verdiepingen)</p>
+                                    <p className="text-[9px] text-ink-500 mt-0.5">Plaatsing, aansluitingen, inregelen</p>
+                                </td>
+                                <td className="text-right text-ink-500">1</td>
+                                <td className="text-right text-ink-900 tabular">€ 2.270,-</td>
                             </tr>
                             <tr className="border-b border-ink-100">
                                 <td className="py-2.5">
@@ -113,19 +121,19 @@ export default function PdfPreview() {
                         </tbody>
                     </table>
 
-                    {/* Totalen rechts */}
+                    {/* Totalen rechts — subtotaal = unit 2.185 + extras 280+500 + installatie-materiaal 1.750 + installatie-arbeid 2.270 + 2 dakdoorvoeren 775 = 7.760 */}
                     <div className="mt-4 ml-auto w-64 text-[10.5px]">
                         <div className="flex justify-between py-1">
                             <span className="text-ink-500">Subtotaal</span>
-                            <span className="text-ink-700 tabular">€ 7.340,-</span>
+                            <span className="text-ink-700 tabular">€ 7.760,-</span>
                         </div>
                         <div className="flex justify-between py-1">
                             <span className="text-ink-500">BTW 21%</span>
-                            <span className="text-ink-700 tabular">€ 1.541,-</span>
+                            <span className="text-ink-700 tabular">€ 1.630,-</span>
                         </div>
                         <div className="flex justify-between py-2 border-t-2 border-ink-900 mt-1 font-bold text-ink-900">
                             <span>Totaal incl. btw</span>
-                            <span className="tabular">€ 8.881,-</span>
+                            <span className="tabular">€ 9.390,-</span>
                         </div>
                     </div>
 

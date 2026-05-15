@@ -21,8 +21,10 @@ const EXTRAS = [
     { id: 'enthalpie',     name: 'Enthalpie-wisselaar', sub: 'Vochtigheidsregeling',          price: 500, icon: Sparkles },
 ];
 
-/** Installatie per verdieping — toont in offerte als aparte regel. */
-const INSTALL_PER_FLOOR = 2200;
+/** Installatie per verdieping — gesplitst in materiaal + arbeid (excl. btw).
+ *  Beide bedragen verschijnen als aparte regels in de offerte. */
+const INSTALL_MATERIAAL_PER_FLOOR = 875;
+const INSTALL_ARBEID_PER_FLOOR = 1135;
 
 function eur(n: number): string {
     return `€ ${n.toLocaleString('nl-NL', { minimumFractionDigits: 0, maximumFractionDigits: 0 })},-`;
@@ -42,9 +44,10 @@ export default function ConfiguratorPreview() {
     const unitPrice = unitObj.price;
     const extraItems = EXTRAS.filter((e) => extras.includes(e.id));
     const extrasPrice = extraItems.reduce((s, e) => s + e.price, 0);
-    const installPrice = INSTALL_PER_FLOOR * floors;
+    const installMateriaalPrice = INSTALL_MATERIAAL_PER_FLOOR * floors;
+    const installArbeidPrice = INSTALL_ARBEID_PER_FLOOR * floors;
     const roofPrice = roof === 1 ? 475 : roof === 2 ? 775 : 0;
-    const subtotal = unitPrice + extrasPrice + installPrice + roofPrice;
+    const subtotal = unitPrice + extrasPrice + installMateriaalPrice + installArbeidPrice + roofPrice;
 
     return (
         <div className="max-w-3xl mx-auto px-6 py-12 sm:py-20">
@@ -241,9 +244,14 @@ export default function ConfiguratorPreview() {
                                 <Row key={e.id} label={e.name} sub={e.sub} value={eur(e.price)} />
                             ))}
                             <Row
-                                label={`Installatie (${floors} ${floors === 1 ? 'verdieping' : 'verdiepingen'})`}
-                                sub="Arbeid + materiaal, excl. ventielen"
-                                value={eur(installPrice)}
+                                label={`Installatie — materiaal (${floors} ${floors === 1 ? 'verdieping' : 'verdiepingen'})`}
+                                sub="Kanalen, ophang, montagemateriaal · excl. ventielen"
+                                value={eur(installMateriaalPrice)}
+                            />
+                            <Row
+                                label={`Installatie — arbeid (${floors} ${floors === 1 ? 'verdieping' : 'verdiepingen'})`}
+                                sub="Plaatsing, aansluitingen, inregelen"
+                                value={eur(installArbeidPrice)}
                             />
                             {roof > 0 && (
                                 <Row
