@@ -1,23 +1,21 @@
 'use client';
 
-import { ShieldCheck, Wallet, MapPin, Award, Phone, Home, MessageCircle, Clock, Leaf } from 'lucide-react';
+import { ShieldCheck, Wallet, MapPin, Award, Phone, Home, MessageCircle, Clock, Leaf, FileText } from 'lucide-react';
 
 export default function EmailPreview() {
     return (
         <div className="max-w-4xl mx-auto px-6 py-12">
 
-            {/* Page intro */}
             <div className="text-center mb-10">
                 <p className="text-[11px] uppercase tracking-wider text-wtw-700 font-semibold">Email-preview</p>
                 <h1 className="mt-2 text-3xl sm:text-4xl font-bold text-ink-900 tracking-tight">
                     Premium order-confirmation
                 </h1>
                 <p className="mt-3 text-ink-600 max-w-xl mx-auto">
-                    Centered layout (max 500px), Lucide trust-iconen, ISDE-callout met groene gloed-border.
+                    Geen bedrag in de mail — klant wordt naar de PDF geleid voor het exacte totaal.
                 </p>
             </div>
 
-            {/* Device frame (mobile preview) */}
             <div className="device-frame max-w-[420px] mx-auto">
                 <div className="device-screen">
                     <EmailBody />
@@ -42,21 +40,26 @@ function EmailBody() {
                 </p>
                 <p className="text-xs text-ink-500">Binnen 1 week ingepland.</p>
 
-                {/* Bedrag-blok */}
-                <div className="mt-10 mb-8 rounded-2xl bg-ink-50 px-6 py-8">
-                    <p className="text-[10px] uppercase tracking-wider text-ink-500 font-semibold mb-2">
-                        Nieuwe installatie
-                    </p>
-                    <p className="text-4xl font-bold text-ink-900 tracking-tight tabular leading-none">
-                        € 7.500,-
-                        <span className="ml-1.5 text-xs font-normal text-ink-500 align-middle">excl. btw</span>
-                    </p>
-                    <p className="mt-3 text-[11px] text-ink-500 tabular">
-                        Offerte #T3362LDL · 15 mei 2026
-                    </p>
+                {/* PDF-cue ipv bedrag-blok — leidt naar de bijgevoegde offerte */}
+                <div className="mt-10 mb-8 rounded-2xl border border-wtw-200 bg-wtw-50/60 px-6 py-7 text-left flex items-start gap-3"
+                     style={{ boxShadow: 'var(--shadow-glow)' }}>
+                    <div className="w-10 h-10 rounded-xl bg-white border border-wtw-200 flex items-center justify-center flex-shrink-0">
+                        <FileText className="w-5 h-5 text-wtw-700" strokeWidth={1.5} />
+                    </div>
+                    <div className="flex-1">
+                        <p className="text-sm font-semibold text-ink-900 leading-tight">
+                            Je volledige offerte staat in de PDF
+                        </p>
+                        <p className="text-xs text-ink-600 mt-1.5 leading-snug">
+                            Klantgegevens, alle opties, installatiekosten en totaalbedrag — netjes op één pagina. Bewaar voor je administratie.
+                        </p>
+                        <p className="text-[11px] text-ink-500 mt-3 tabular">
+                            Offerte #T3362LDL · 15 mei 2026
+                        </p>
+                    </div>
                 </div>
 
-                {/* ISDE-callout met groene gloed */}
+                {/* ISDE-callout */}
                 <div
                     className="mb-8 rounded-xl px-4 py-3 text-left"
                     style={{
@@ -78,20 +81,14 @@ function EmailBody() {
                     </div>
                 </div>
 
-                {/* Trust-strip met Lucide icoontjes */}
-                <div className="mb-8 flex items-center justify-between gap-2 text-[11px] text-ink-500">
+                {/* Trust-strip */}
+                <div className="mb-10 flex items-center justify-between gap-2 text-[11px] text-ink-500">
                     <TrustItem icon={ShieldCheck} label="2 jaar garantie" />
                     <TrustItem icon={Wallet} label="Vaste prijs" />
                     <TrustItem icon={MapPin} label="Geen voorrij" />
                     <TrustItem icon={Award} label="Off. dealer" />
                 </div>
 
-                {/* PDF-notice */}
-                <p className="mb-10 text-xs text-ink-500">
-                    In de bijgevoegde PDF vind je alle details.
-                </p>
-
-                {/* Kies vervolgstap */}
                 <p className="mb-5 text-base font-semibold text-ink-900">Kies je vervolgstap</p>
 
                 <div className="space-y-2 max-w-[320px] mx-auto">
@@ -130,7 +127,7 @@ function EmailBody() {
 function TrustItem({ icon: Icon, label }: { icon: typeof ShieldCheck; label: string }) {
     return (
         <div className="flex flex-col items-center gap-1 flex-1 min-w-0">
-            <Icon className="w-4 h-4 text-wtw-600" strokeWidth={1.5} />
+            <Icon className="w-4 h-4 text-wtw-500" strokeWidth={1.5} />
             <span className="truncate">{label}</span>
         </div>
     );
@@ -141,10 +138,10 @@ function EmailCTA({ primary, icon: Icon, label }: { primary?: boolean; icon: typ
         <button
             type="button"
             className={[
-                'w-full h-11 px-4 rounded-xl text-[13px] font-medium flex items-center justify-center gap-2 transition-colors',
+                'w-full h-11 px-4 rounded-xl text-[13px] font-medium flex items-center justify-center gap-2 transition-all',
                 primary
-                    ? 'bg-wtw-600 text-white hover:bg-wtw-700'
-                    : 'bg-white border border-ink-200 text-ink-800 hover:border-ink-300',
+                    ? 'bg-wtw-500 text-white hover:bg-wtw-600 shadow-[0_4px_14px_-2px_rgba(16,185,129,0.45)]'
+                    : 'bg-white border border-ink-200 text-ink-800 hover:border-wtw-300 hover:bg-wtw-50/40',
             ].join(' ')}
         >
             <Icon className="w-3.5 h-3.5" strokeWidth={1.5} />

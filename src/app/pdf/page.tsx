@@ -10,18 +10,17 @@ export default function PdfPreview() {
                     Offerte-PDF
                 </h1>
                 <p className="mt-3 text-ink-600 max-w-xl mx-auto">
-                    Stripe-stijl items-tabel, dunne borders, watermark voor preview-context.
+                    Stripe-stijl items-tabel met unit + extras + installatie als aparte regels. Subtiele dunne borders.
                 </p>
             </div>
 
-            {/* A4-mockup */}
             <div className="a4 mx-auto bg-white rounded-md shadow-lg relative overflow-hidden border border-ink-200">
 
                 <div className="absolute inset-0 watermark">VOORBEELD</div>
 
                 <div className="relative h-full flex flex-col px-10 py-10 text-[11px] text-ink-700">
 
-                    {/* Header — logo + offerte-meta */}
+                    {/* Header */}
                     <header className="flex items-start justify-between pb-6 border-b border-ink-200">
                         <img src="/wtw-logo.jpg" alt="WTW.nl" className="h-8" />
                         <div className="text-right">
@@ -42,19 +41,13 @@ export default function PdfPreview() {
                         </div>
                         <div className="text-right">
                             <p className="text-[9px] uppercase tracking-wider text-ink-500 mb-1">Geldig tot</p>
-                            <p className="font-semibold text-ink-900">11 juni 2026</p>
+                            <p className="font-semibold text-ink-900">14 juni 2026</p>
                             <p className="text-[9px] text-ink-500 mt-3 uppercase tracking-wider">Status</p>
                             <p className="text-ink-700">In afwachting van akkoord</p>
                         </div>
                     </div>
 
-                    {/* Wat we leveren */}
-                    <div className="mt-6">
-                        <p className="text-[9px] uppercase tracking-wider text-ink-500 mb-1">Wat we leveren</p>
-                        <p className="text-ink-900">Nieuwe WTW-installatie, all-in opgeleverd inclusief inregeling.</p>
-                    </div>
-
-                    {/* Items-tabel — Stripe-stijl */}
+                    {/* Items-tabel — Unit + Extras + Installatie netjes uitgesplitst */}
                     <table className="mt-6 w-full border-collapse text-[10.5px]">
                         <thead>
                             <tr className="border-b border-ink-200">
@@ -64,42 +57,75 @@ export default function PdfPreview() {
                             </tr>
                         </thead>
                         <tbody>
+                            {/* Unit */}
                             <tr className="border-b border-ink-100">
-                                <td className="py-2.5 text-ink-900">Zehnder ComfoAir Q450</td>
+                                <td className="py-2.5">
+                                    <p className="text-ink-900 font-medium">Zehnder ComfoAir Q450</p>
+                                    <p className="text-[9px] text-ink-500 mt-0.5">Basisunit · 450 m³/h · kaal</p>
+                                </td>
                                 <td className="text-right text-ink-500">1</td>
                                 <td className="text-right text-ink-900 tabular">€ 2.185,-</td>
                             </tr>
+
+                            {/* Extras — naam + prijs per stuk */}
                             <tr className="border-b border-ink-100">
-                                <td className="py-2.5 text-ink-900">Installatie (2 verdiepingen) — arbeid + materiaal</td>
+                                <td className="py-2.5">
+                                    <p className="text-ink-900">ComfoConnect PRO</p>
+                                    <p className="text-[9px] text-ink-500 mt-0.5">App-bediening + monitoring</p>
+                                </td>
+                                <td className="text-right text-ink-500">1</td>
+                                <td className="text-right text-ink-900 tabular">€ 280,-</td>
+                            </tr>
+                            <tr className="border-b border-ink-100">
+                                <td className="py-2.5">
+                                    <p className="text-ink-900">Enthalpie-wisselaar</p>
+                                    <p className="text-[9px] text-ink-500 mt-0.5">Vochtigheidsregeling</p>
+                                </td>
+                                <td className="text-right text-ink-500">1</td>
+                                <td className="text-right text-ink-900 tabular">€ 500,-</td>
+                            </tr>
+
+                            {/* Installatie-component */}
+                            <tr className="border-b border-ink-100">
+                                <td className="py-2.5">
+                                    <p className="text-ink-900 font-medium">Installatie (2 verdiepingen)</p>
+                                    <p className="text-[9px] text-ink-500 mt-0.5">Arbeid + materiaal · all-in, excl. ventielen</p>
+                                </td>
                                 <td className="text-right text-ink-500">1</td>
                                 <td className="text-right text-ink-900 tabular">€ 3.600,-</td>
                             </tr>
                             <tr className="border-b border-ink-100">
-                                <td className="py-2.5 text-ink-900">2 dakdoorvoeren</td>
+                                <td className="py-2.5">
+                                    <p className="text-ink-900">2 dakdoorvoeren</p>
+                                    <p className="text-[9px] text-ink-500 mt-0.5">Voordelig pakket-tarief</p>
+                                </td>
                                 <td className="text-right text-ink-500">1</td>
                                 <td className="text-right text-ink-900 tabular">€ 775,-</td>
                             </tr>
                             <tr className="border-b border-ink-100">
-                                <td className="py-2.5 text-ink-900">Minimum-aanvulling (installatie ≥ € 7.500)</td>
+                                <td className="py-2.5">
+                                    <p className="text-ink-900">Inregelen + meting</p>
+                                    <p className="text-[9px] text-ink-500 mt-0.5">Per ventiel gebalanceerd + rapport</p>
+                                </td>
                                 <td className="text-right text-ink-500">1</td>
-                                <td className="text-right text-ink-900 tabular">€ 940,-</td>
+                                <td className="text-right text-ink-900 tabular">incl.</td>
                             </tr>
                         </tbody>
                     </table>
 
-                    {/* Totalen rechts uitgelijnd */}
+                    {/* Totalen rechts */}
                     <div className="mt-4 ml-auto w-64 text-[10.5px]">
                         <div className="flex justify-between py-1">
                             <span className="text-ink-500">Subtotaal</span>
-                            <span className="text-ink-700 tabular">€ 7.500,-</span>
+                            <span className="text-ink-700 tabular">€ 7.340,-</span>
                         </div>
                         <div className="flex justify-between py-1">
                             <span className="text-ink-500">BTW 21%</span>
-                            <span className="text-ink-700 tabular">€ 1.575,-</span>
+                            <span className="text-ink-700 tabular">€ 1.541,-</span>
                         </div>
                         <div className="flex justify-between py-2 border-t-2 border-ink-900 mt-1 font-bold text-ink-900">
                             <span>Totaal incl. btw</span>
-                            <span className="tabular">€ 9.075,-</span>
+                            <span className="tabular">€ 8.881,-</span>
                         </div>
                     </div>
 
@@ -111,7 +137,6 @@ export default function PdfPreview() {
                         <p>Mogelijk € 400 ISDE-subsidie per WTW-unit — geregeld via simpelsubsidie.nl.</p>
                     </div>
 
-                    {/* Footer — strak onderaan */}
                     <div className="mt-auto pt-6 text-center text-[8.5px] text-ink-500 leading-relaxed">
                         <p className="font-semibold text-ink-700">WTW B.V. · Innovation in Ventilation</p>
                         <p>Dynamoweg 1, 2627 CG Delft · 085-0602297 · info@wtw.nl</p>

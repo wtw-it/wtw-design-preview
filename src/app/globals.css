@@ -2,26 +2,27 @@
 
 /* ============================================================================
  * WTW Design Tokens — Tailwind v4 @theme directive
- * Apple ademruimte × Stripe data-scherpte × WTW-groen
+ * Apple ademruimte × Stripe data-scherpte × WTW-gloedgroen (zachte 500)
  * ========================================================================= */
 
 @theme {
-    /* WTW-groen palet — basis emerald + zachte gloed-varianten */
+    /* WTW-groen palet — basis + zachte gloed-varianten */
     --color-wtw-50:  #ECFDF5;
     --color-wtw-100: #D1FAE5;
     --color-wtw-200: #A7F3D0;
     --color-wtw-300: #6EE7B7;
     --color-wtw-400: #34D399;
-    --color-wtw-500: #10B981;
-    --color-wtw-600: #059669; /* primary */
+    --color-wtw-500: #10B981; /* primary — zachter dan 600 */
+    --color-wtw-600: #059669; /* hover op primary */
     --color-wtw-700: #047857;
     --color-wtw-800: #065F46;
     --color-wtw-900: #064E3B;
 
-    /* Glow — zacht groene gloed voor selected-states */
-    --color-wtw-glow: rgba(16, 185, 129, 0.18);
+    /* Glow — zachtgroene gloed voor selected-states + button-shadows */
+    --color-wtw-glow: rgba(16, 185, 129, 0.20);
+    --color-wtw-glow-soft: rgba(16, 185, 129, 0.10);
 
-    /* Slate-systeem voor tekst + UI */
+    /* Ink-systeem — niet pure black, beter leesbaar */
     --color-ink-900: #0A0A0B;
     --color-ink-800: #1A1A1C;
     --color-ink-700: #2D2D32;
@@ -33,29 +34,28 @@
     --color-ink-100: #F5F5F7;
     --color-ink-50:  #FAFAFB;
 
-    /* Typografie — Inter (system fallback) */
+    /* Typografie — Inter */
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     --font-mono: 'SF Mono', 'Menlo', 'Monaco', monospace;
 
-    /* Spacing-schaal: 4/8/12/16/24/32/48/64/96 */
-    /* Tailwind default schaal dekt al meeste. Voeg semantische tokens toe: */
-    --spacing-section: 6rem;   /* 96px — tussen secties */
-    --spacing-gutter: 1.5rem;  /* 24px — horizontal page-padding */
+    /* Spacing-tokens */
+    --spacing-section: 6rem;
+    --spacing-gutter: 1.5rem;
 
     /* Radius hierarchy */
-    --radius-sm: 0.5rem;   /* 8px  */
-    --radius-md: 0.75rem;  /* 12px */
-    --radius-lg: 1rem;     /* 16px */
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
 
-    /* Shadows — soft, Apple-stijl. Geen materials. */
+    /* Shadows — Apple-soft, geen materials. Primary CTAs hebben gloed-shadow. */
     --shadow-sm: 0 1px 2px rgba(10, 10, 11, 0.04);
     --shadow-md: 0 1px 3px rgba(10, 10, 11, 0.05), 0 4px 10px -4px rgba(10, 10, 11, 0.04);
     --shadow-lg: 0 2px 4px rgba(10, 10, 11, 0.05), 0 12px 32px -12px rgba(10, 10, 11, 0.10);
     --shadow-glow: 0 0 0 4px var(--color-wtw-glow);
-    --shadow-glow-strong: 0 0 0 6px var(--color-wtw-glow), 0 8px 24px -8px rgba(16, 185, 129, 0.30);
+    --shadow-glow-strong: 0 0 0 6px var(--color-wtw-glow), 0 10px 30px -6px rgba(16, 185, 129, 0.32);
+    --shadow-cta-glow: 0 6px 18px -4px rgba(16, 185, 129, 0.40);
 }
 
-/* Apple-DNA: zachte font-rendering + tabular-nums voor data */
 html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -73,12 +73,10 @@ body {
     font-variant-numeric: tabular-nums;
 }
 
-/* Smooth transitions overal (subtiel) */
 * {
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Subtiele micro-interaction utilities */
 .hover-lift {
     transition: transform 200ms, box-shadow 200ms;
 }
@@ -87,19 +85,20 @@ body {
     box-shadow: var(--shadow-lg);
 }
 
+/* Selected card — zachtgroene gloed ipv solide rand */
 .card-glow-selected {
-    border-color: var(--color-wtw-500);
+    border-color: var(--color-wtw-400);
     box-shadow: var(--shadow-glow-strong);
 }
 
-/* PDF-mockup A4 verhouding */
+/* PDF-mockup A4-verhouding */
 .a4 {
     aspect-ratio: 1 / 1.414;
     width: 100%;
     max-width: 595px;
 }
 
-/* Watermark-tag voor PDF "Voorbeeld" */
+/* "VOORBEELD"-watermark */
 .watermark {
     position: absolute;
     top: 40%;
