@@ -18,6 +18,19 @@
     --color-wtw-800: #065F46;
     --color-wtw-900: #064E3B;
 
+    /* Bedrijfssysteem-groen — donker palet van de bestaande wtw.nl-ERP.
+     * Gebruikt door /erp; de preview-schermen houden het lichtere wtw-palet. */
+    --color-brand-50:  #EDF4F0;
+    --color-brand-100: #D5E7DD;
+    --color-brand-200: #A9CDBB;
+    --color-brand-300: #6FAE91;
+    --color-brand-400: #3C8F6C;
+    --color-brand-500: #23795A;
+    --color-brand-600: #17694C;
+    --color-brand-700: #146C43; /* header + statusbalk */
+    --color-brand-800: #0E4A34;
+    --color-brand-900: #0A3D2A;
+
     /* Glow — zachtgroene gloed voor selected-states + button-shadows */
     --color-wtw-glow: rgba(16, 185, 129, 0.20);
     --color-wtw-glow-soft: rgba(16, 185, 129, 0.10);
@@ -268,4 +281,85 @@ body {
     .particle {
         animation: none;
     }
+}
+
+/* ============================================================================
+ * ERP — bedrijfssysteem-schil in het donkergroen van wtw.nl
+ * ========================================================================= */
+
+/* Hero-kaart bovenaan het dashboard */
+.erp-hero {
+    background: linear-gradient(135deg, var(--color-brand-800) 0%, var(--color-brand-600) 100%);
+    position: relative;
+    overflow: hidden;
+}
+/* Subtiele concentrische ringen, zoals in het bestaande systeem */
+.erp-hero::after {
+    content: '';
+    position: absolute;
+    right: -20%;
+    top: -60%;
+    width: 420px;
+    height: 420px;
+    border-radius: 9999px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.07) 0%, transparent 62%);
+    pointer-events: none;
+}
+
+/* Sectiekop met groen accentstaafje */
+.erp-sectie {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-ink-500);
+}
+.erp-sectie::before {
+    content: '';
+    width: 3px;
+    height: 15px;
+    border-radius: 2px;
+    background: var(--color-brand-500);
+}
+
+/* Statkaart met groene bovenrand */
+.erp-stat {
+    position: relative;
+    background: #FFFFFF;
+    border: 1px solid var(--color-ink-200);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+}
+.erp-stat::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-brand-600), var(--color-brand-400));
+}
+
+/* Icoontegel in kaarten en menu-items */
+.erp-tegel {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-brand-50);
+    color: var(--color-brand-600);
+    flex-shrink: 0;
+}
+.erp-tegel-oranje {
+    background: #FFF4E6;
+    color: #C2650A;
+}
+
+/* Veilige marge onder de bottom-bar op iOS */
+.erp-safe-bottom {
+    padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
 }

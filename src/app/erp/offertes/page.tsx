@@ -59,8 +59,8 @@ export default function Offertes() {
                 actie={
                     <Link
                         href="/erp/chat"
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-wtw-500 text-white text-sm font-medium hover:bg-wtw-600 transition-colors"
-                        style={{ boxShadow: 'var(--shadow-cta-glow)' }}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-brand-700 text-white text-sm font-semibold hover:bg-brand-800 transition-colors"
+                       
                     >
                         <MessageSquare size={16} strokeWidth={1.5} />
                         Nieuwe offerte via chat
@@ -95,7 +95,7 @@ export default function Offertes() {
                                                 if (volgende === 'akkoord') naarOrder(o.id);
                                                 else updateOfferte(o.id, { status: volgende });
                                             }}
-                                            className="text-wtw-600 hover:underline text-sm"
+                                            className="text-brand-600 hover:underline text-sm"
                                         >
                                             {volgende === 'akkoord' ? 'Akkoord → order' : 'Versturen'}
                                         </button>

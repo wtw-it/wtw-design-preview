@@ -1,5 +1,7 @@
 'use client';
 
+import type { LucideIcon } from 'lucide-react';
+
 /** Kleine gedeelde bouwstenen voor de ERP-schermen. */
 
 export function PageHeader({
@@ -12,14 +14,19 @@ export function PageHeader({
     actie?: React.ReactNode;
 }) {
     return (
-        <div className="flex items-start justify-between gap-4 mb-7">
+        <div className="flex items-start justify-between gap-4 mb-5">
             <div>
-                <h1 className="text-2xl font-semibold tracking-tight text-ink-900">{titel}</h1>
+                <h1 className="text-[22px] font-bold tracking-tight text-ink-900">{titel}</h1>
                 {sub && <p className="text-sm text-ink-500 mt-1">{sub}</p>}
             </div>
             {actie}
         </div>
     );
+}
+
+/** Sectiekop met groen accentstaafje — zoals AGENDA / OPVOLGEN in het bedrijfssysteem. */
+export function Sectie({ children }: { children: React.ReactNode }) {
+    return <div className="erp-sectie mb-2.5">{children}</div>;
 }
 
 export function Card({
@@ -30,7 +37,7 @@ export function Card({
     className?: string;
 }) {
     return (
-        <div className={`bg-white border border-ink-200 rounded-lg shadow-sm ${className}`}>
+        <div className={`bg-white border border-ink-200 rounded-2xl shadow-sm ${className}`}>
             {children}
         </div>
     );
@@ -40,22 +47,34 @@ export function Stat({
     label,
     waarde,
     hint,
+    icon: Icon,
+    tint,
 }: {
     label: string;
     waarde: string;
     hint?: string;
+    icon?: LucideIcon;
+    /** 'oranje' voor agenda-achtige kaarten, standaard groen */
+    tint?: 'oranje';
 }) {
     return (
-        <Card className="p-5">
-            <div className="text-[11px] uppercase tracking-wider text-ink-400">{label}</div>
-            <div className="text-2xl font-semibold text-ink-900 mt-1.5 tabular">{waarde}</div>
-            {hint && <div className="text-xs text-ink-500 mt-1">{hint}</div>}
-        </Card>
+        <div className="erp-stat p-4">
+            {Icon && (
+                <span className={tint === 'oranje' ? 'erp-tegel erp-tegel-oranje' : 'erp-tegel'}>
+                    <Icon size={18} strokeWidth={1.75} />
+                </span>
+            )}
+            <div className="mt-3 flex items-baseline gap-1.5">
+                <span className="text-2xl font-bold text-brand-800 tabular">{waarde}</span>
+                <span className="text-sm text-ink-600">{label}</span>
+            </div>
+            {hint && <div className="text-xs text-ink-500 mt-1.5">{hint}</div>}
+        </div>
     );
 }
 
 const TONE: Record<string, string> = {
-    groen: 'bg-wtw-50 text-wtw-700 border-wtw-200',
+    groen: 'bg-brand-50 text-brand-700 border-brand-200',
     grijs: 'bg-ink-100 text-ink-600 border-ink-200',
     amber: 'bg-amber-50 text-amber-700 border-amber-200',
     rood: 'bg-red-50 text-red-700 border-red-200',
@@ -96,7 +115,7 @@ export function Table({
                             {kolommen.map((k) => (
                                 <th
                                     key={k}
-                                    className="text-left font-medium text-ink-500 text-[11px] uppercase tracking-wider px-4 py-2.5 whitespace-nowrap"
+                                    className="text-left font-semibold text-ink-500 text-[11px] uppercase tracking-wider px-4 py-2.5 whitespace-nowrap"
                                 >
                                     {k}
                                 </th>

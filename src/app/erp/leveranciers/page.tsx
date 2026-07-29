@@ -51,11 +51,11 @@ export default function Leveranciers() {
                             </dl>
 
                             <div className="mt-4 pt-4 border-t border-ink-100 space-y-1.5 text-sm text-ink-600">
-                                <a href={`mailto:${l.email}`} className="flex items-center gap-2 hover:text-wtw-600">
+                                <a href={`mailto:${l.email}`} className="flex items-center gap-2 hover:text-brand-600">
                                     <Mail size={15} strokeWidth={1.5} />
                                     {l.email}
                                 </a>
-                                <a href={`tel:${l.telefoon}`} className="flex items-center gap-2 hover:text-wtw-600">
+                                <a href={`tel:${l.telefoon}`} className="flex items-center gap-2 hover:text-brand-600">
                                     <Phone size={15} strokeWidth={1.5} />
                                     {l.telefoon}
                                 </a>

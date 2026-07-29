@@ -30,12 +30,12 @@ export default function Producten() {
                     value={zoek}
                     onChange={(e) => setZoek(e.target.value)}
                     placeholder="Zoek op naam of SKU…"
-                    className="px-3 py-2 text-sm border border-ink-200 rounded-md w-64 focus:outline-none focus:border-wtw-400"
+                    className="px-3 py-2 text-sm border border-ink-200 rounded-md w-64 focus:outline-none focus:border-brand-400"
                 />
                 <select
                     value={cat}
                     onChange={(e) => setCat(e.target.value)}
-                    className="px-3 py-2 text-sm border border-ink-200 rounded-md bg-white focus:outline-none focus:border-wtw-400"
+                    className="px-3 py-2 text-sm border border-ink-200 rounded-md bg-white focus:outline-none focus:border-brand-400"
                 >
                     {categorieen.map((c) => (
                         <option key={c} value={c}>
@@ -64,7 +64,7 @@ export default function Producten() {
                                     type="number"
                                     value={p.verkoop}
                                     onChange={(e) => updateProduct(p.id, { verkoop: Number(e.target.value) })}
-                                    className="w-24 px-2 py-1 border border-transparent hover:border-ink-200 focus:border-wtw-400 rounded text-right tabular focus:outline-none"
+                                    className="w-24 px-2 py-1 border border-transparent hover:border-ink-200 focus:border-brand-400 rounded text-right tabular focus:outline-none"
                                 />
                             </Td>
                             <Td className="tabular">{p.inkoop ? `${marge(p).toFixed(0)}%` : '—'}</Td>

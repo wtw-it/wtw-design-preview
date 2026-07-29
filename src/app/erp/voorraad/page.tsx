@@ -39,7 +39,7 @@ export default function Voorraad() {
                                         onClick={() =>
                                             updateProduct(p.id, { voorraad: Math.max(0, p.voorraad - 1) })
                                         }
-                                        className="h-6 w-6 rounded border border-ink-200 flex items-center justify-center text-ink-600 hover:border-wtw-400 hover:text-wtw-600"
+                                        className="h-6 w-6 rounded border border-ink-200 flex items-center justify-center text-ink-600 hover:border-brand-400 hover:text-brand-600"
                                         aria-label="Eén af"
                                     >
                                         <Minus size={13} strokeWidth={1.5} />
@@ -49,7 +49,7 @@ export default function Voorraad() {
                                     </span>
                                     <button
                                         onClick={() => updateProduct(p.id, { voorraad: p.voorraad + 1 })}
-                                        className="h-6 w-6 rounded border border-ink-200 flex items-center justify-center text-ink-600 hover:border-wtw-400 hover:text-wtw-600"
+                                        className="h-6 w-6 rounded border border-ink-200 flex items-center justify-center text-ink-600 hover:border-brand-400 hover:text-brand-600"
                                         aria-label="Eén bij"
                                     >
                                         <Plus size={13} strokeWidth={1.5} />

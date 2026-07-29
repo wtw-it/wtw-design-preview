@@ -58,7 +58,7 @@ export default function Orders() {
                                 <select
                                     value={o.status}
                                     onChange={(e) => updateOrder(o.id, { status: e.target.value as OrderStatus })}
-                                    className="text-xs border border-ink-200 rounded px-2 py-1 bg-white focus:outline-none focus:border-wtw-400"
+                                    className="text-xs border border-ink-200 rounded px-2 py-1 bg-white focus:outline-none focus:border-brand-400"
                                 >
                                     {STATUSSEN.map((s) => (
                                         <option key={s} value={s}>
@@ -72,14 +72,14 @@ export default function Orders() {
                                     type="date"
                                     value={o.planning ?? ''}
                                     onChange={(e) => updateOrder(o.id, { planning: e.target.value || null })}
-                                    className="text-xs border border-ink-200 rounded px-2 py-1 focus:outline-none focus:border-wtw-400"
+                                    className="text-xs border border-ink-200 rounded px-2 py-1 focus:outline-none focus:border-brand-400"
                                 />
                             </Td>
                             <Td>
                                 <select
                                     value={o.bezorgerId ?? ''}
                                     onChange={(e) => updateOrder(o.id, { bezorgerId: e.target.value || null })}
-                                    className="text-xs border border-ink-200 rounded px-2 py-1 bg-white focus:outline-none focus:border-wtw-400"
+                                    className="text-xs border border-ink-200 rounded px-2 py-1 bg-white focus:outline-none focus:border-brand-400"
                                 >
                                     <option value="">—</option>
                                     {scoped.bezorgers.map((b) => (

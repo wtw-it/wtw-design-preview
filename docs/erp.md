@@ -7,14 +7,23 @@ Eén app met een bedrijfs-switch linksboven: alle producten, klanten, offertes e
 orders hangen aan een `company`. Je onderhoudt het systeem één keer, maar de
 data van beide B.V.'s blijft strikt gescheiden — ook in de database, via RLS.
 
+## Vormgeving
+
+Volgt het bestaande bedrijfssysteem van wtw.nl: donkergroen (`--color-brand-*`,
+header `#146C43`), mobile-first met bottom-tabs en een drawer met groepen
+DAGELIJKS / ADMINISTRATIE / MAGAZIJN / INSTELLINGEN, bedrijfskiezer linksboven
+in de kopbalk, begroetings-hero op het dashboard en statkaarten met groene
+bovenrand. De design-preview-schermen houden hun eigen lichtere palet.
+
 ## Schermen
 
 | Scherm | Wat het doet |
 |---|---|
-| Dashboard | Open offertes, lopende orders, voorraad onder minimum |
+| Dashboard | Begroeting, open offertes, ritten vandaag, voorraadsignaal, snelacties |
 | **Master chat** | Offerte intypen in gewone taal; Claude zoekt artikelen en klanten op en stelt de regels voor |
 | Offertes | Lijst + detail, statusflow concept → verstuurd → akkoord (akkoord maakt direct een order) |
 | Orders | Webshop- en installatie-orders, status, planning en bezorger |
+| Planning | Agenda per dag met adres en bezorger; ongeplande orders direct inplannen |
 | Producten | Catalogus met inkoop, verkoop, marge, voorraad en webshop-id |
 | Voorraad | Voorraadwaarde, minimum-signalering, bijbestellen per leverancier |
 | Klanten | Particulier/zakelijk, met bron (webshop, offerte, telefoon) |

@@ -144,9 +144,9 @@ export default function MasterChat() {
                         <button
                             key={v}
                             onClick={() => verstuur(v)}
-                            className="block w-full text-left px-4 py-3 rounded-lg border border-ink-200 bg-white text-sm text-ink-600 hover:border-wtw-400 hover:text-ink-900 transition-colors"
+                            className="block w-full text-left px-4 py-3 rounded-lg border border-ink-200 bg-white text-sm text-ink-600 hover:border-brand-400 hover:text-ink-900 transition-colors"
                         >
-                            <Sparkles size={14} strokeWidth={1.5} className="inline mr-2 text-wtw-500" />
+                            <Sparkles size={14} strokeWidth={1.5} className="inline mr-2 text-brand-500" />
                             {v}
                         </button>
                     ))}
@@ -159,7 +159,7 @@ export default function MasterChat() {
                         <div
                             className={
                                 b.role === 'user'
-                                    ? 'max-w-[80%] px-4 py-2.5 rounded-2xl rounded-br-sm bg-wtw-500 text-white text-sm'
+                                    ? 'max-w-[80%] px-4 py-2.5 rounded-2xl rounded-br-sm bg-brand-500 text-white text-sm'
                                     : 'max-w-[85%] text-sm text-ink-800 whitespace-pre-wrap leading-relaxed'
                             }
                         >
@@ -182,7 +182,7 @@ export default function MasterChat() {
             )}
 
             {voorstel && (
-                <Card className="p-5 mb-5 ring-1 ring-wtw-200">
+                <Card className="p-5 mb-5 ring-1 ring-brand-200">
                     <div className="flex items-center justify-between gap-3 mb-4">
                         <div>
                             <Badge tone="groen">Voorstel</Badge>
@@ -190,8 +190,8 @@ export default function MasterChat() {
                         </div>
                         <button
                             onClick={bevestig}
-                            className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-wtw-500 text-white text-sm font-medium hover:bg-wtw-600"
-                            style={{ boxShadow: 'var(--shadow-cta-glow)' }}
+                            className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-brand-700 text-white text-sm font-semibold hover:bg-brand-800"
+                           
                         >
                             <Check size={16} strokeWidth={1.5} />
                             Vastleggen als concept
@@ -242,7 +242,7 @@ export default function MasterChat() {
                 <button
                     type="submit"
                     disabled={bezig || !invoer.trim()}
-                    className="h-9 w-9 rounded-lg bg-wtw-500 text-white flex items-center justify-center disabled:opacity-40 hover:bg-wtw-600"
+                    className="h-9 w-9 rounded-lg bg-brand-700 text-white flex items-center justify-center disabled:opacity-40 hover:bg-brand-600"
                     aria-label="Versturen"
                 >
                     <ArrowUp size={17} strokeWidth={2} />

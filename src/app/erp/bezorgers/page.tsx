@@ -43,7 +43,7 @@ export default function Bezorgers() {
 
                         <a
                             href={`tel:${b.telefoon}`}
-                            className="flex items-center gap-2 mt-4 pt-4 border-t border-ink-100 text-sm text-ink-600 hover:text-wtw-600"
+                            className="flex items-center gap-2 mt-4 pt-4 border-t border-ink-100 text-sm text-ink-600 hover:text-brand-600"
                         >
                             <Phone size={15} strokeWidth={1.5} />
                             {b.telefoon} · {b.contact}

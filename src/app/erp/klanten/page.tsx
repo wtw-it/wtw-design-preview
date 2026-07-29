@@ -21,7 +21,7 @@ export default function Klanten() {
                 value={zoek}
                 onChange={(e) => setZoek(e.target.value)}
                 placeholder="Zoek op naam of plaats…"
-                className="px-3 py-2 text-sm border border-ink-200 rounded-md w-64 mb-4 focus:outline-none focus:border-wtw-400"
+                className="px-3 py-2 text-sm border border-ink-200 rounded-md w-64 mb-4 focus:outline-none focus:border-brand-400"
             />
 
             <Table kolommen={['Naam', 'Type', 'Contact', 'Adres', 'Bron', 'Offertes', 'Orders']}>

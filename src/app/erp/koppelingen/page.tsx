@@ -49,7 +49,7 @@ export default function Koppelingen() {
                     return (
                         <Card
                             key={k.company}
-                            className={`p-5 ${k.company === company ? 'ring-1 ring-wtw-200' : ''}`}
+                            className={`p-5 ${k.company === company ? 'ring-1 ring-brand-200' : ''}`}
                         >
                             <div className="flex items-start justify-between gap-4">
                                 <div>
@@ -67,7 +67,7 @@ export default function Koppelingen() {
                                     <button
                                         onClick={() => test(k.company)}
                                         disabled={bezig === k.company}
-                                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-ink-200 text-sm text-ink-700 hover:border-wtw-400 hover:text-wtw-600 disabled:opacity-50"
+                                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-ink-200 text-sm text-ink-700 hover:border-brand-400 hover:text-brand-600 disabled:opacity-50"
                                     >
                                         <RefreshCw
                                             size={14}
@@ -85,7 +85,7 @@ export default function Koppelingen() {
                                 </p>
                             )}
                             {res?.aantalProducten !== undefined && (
-                                <p className="mt-3 text-sm text-wtw-700">
+                                <p className="mt-3 text-sm text-brand-700">
                                     Verbonden met {res.url} — {res.aantalProducten} producten gevonden.
                                 </p>
                             )}
