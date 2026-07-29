@@ -17,6 +17,9 @@ export default function Navigation() {
     const pathname = usePathname();
     const [open, setOpen] = useState(false);
 
+    // De ERP heeft zijn eigen schil met sidebar.
+    if (pathname.startsWith('/erp')) return null;
+
     return (
         <header className="sticky top-0 z-40 bg-white/85 backdrop-blur border-b border-ink-200">
             <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">

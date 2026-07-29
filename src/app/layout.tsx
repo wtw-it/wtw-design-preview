@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import Navigation from '@/components/Navigation';
+import PreviewFooter from '@/components/PreviewFooter';
 
 const inter = Inter({
     subsets: ['latin'],
@@ -22,11 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <body className="min-h-screen bg-white text-ink-800">
                 <Navigation />
                 <main>{children}</main>
-                <footer className="border-t border-ink-200 mt-24 py-12">
-                    <div className="max-w-6xl mx-auto px-6 text-center text-xs text-ink-500">
-                        WTW Design Preview · interne visualisatie · niet voor klanten
-                    </div>
-                </footer>
+                <PreviewFooter />
             </body>
         </html>
     );

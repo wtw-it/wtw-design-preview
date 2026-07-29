@@ -13,6 +13,15 @@ Apple-ademruimte × Stripe data-scherpte × WTW-groen.
 4. **Akkoord** — `/akkoord` — Callback-variant met 4 tijdsblok-cards
 5. **PDF** — `/pdf` — A4-mockup Stripe-stijl met watermark
 
+## ERP (nieuw)
+
+**`/erp`** — Installatie- & Verkoop-ERP voor wtw-winkel.nl en wtwstore.com,
+los van de ERP van wtw.nl. Producten, leveranciers, bezorgers, klanten,
+offertes, orders, voorraad, WooCommerce-koppeling en een master chat om
+offertes in gewone taal in te typen.
+
+Zie [`docs/erp.md`](./docs/erp.md) en [`.env.example`](./.env.example).
+
 ## Tech
 
 - Next.js 16 · App Router
