@@ -16,6 +16,7 @@ import {
     Menu,
     MessageSquare,
     Plug,
+    Receipt,
     RefreshCw,
     Truck,
     Users,
@@ -48,6 +49,7 @@ const GROEPEN: { titel: string; items: Item[] }[] = [
         titel: 'Administratie',
         items: [
             { href: '/erp/offertes', label: 'Offertes', sub: 'Concept tot akkoord', icon: FileText },
+            { href: '/erp/facturen', label: 'Facturen', sub: 'Factureren en betalingen volgen', icon: Receipt },
             { href: '/erp/klanten', label: 'Klanten', sub: 'Particulier en zakelijk', icon: Users },
         ],
     },

@@ -23,6 +23,7 @@ bovenrand. De design-preview-schermen houden hun eigen lichtere palet.
 | **Master chat** | Offerte intypen in gewone taal; Claude zoekt artikelen en klanten op en stelt de regels voor |
 | Offertes | Lijst + detail, statusflow concept → verstuurd → akkoord (akkoord maakt direct een order) |
 | Orders | Webshop- en installatie-orders, status, planning en bezorger |
+| Facturen | Order geleverd/gemonteerd → factuur; statusflow concept → verstuurd → betaald, over-termijn-signaal |
 | Planning | Agenda per dag met adres en bezorger; ongeplande orders direct inplannen |
 | Producten | Catalogus met inkoop, verkoop, marge, voorraad en webshop-id |
 | Voorraad | Voorraadwaarde, minimum-signalering, bijbestellen per leverancier |
@@ -76,7 +77,6 @@ alleen het laden en schrijven verandert.
   tijdvak, in plaats van los bellen.
 - **Marge-alarm** — signaal wanneer een inkoopprijs stijgt en de webshopprijs
   achterblijft; nu zie je dat pas achteraf.
-- **Facturatie-koppeling** — order → factuur naar de boekhouding, per B.V.
-  gescheiden.
+- **Facturatie-export** — facturen als PDF en doorzetten naar de boekhouding.
 - **Onderdelen-abonnement** — filtersets zijn een terugkerende verkoop; een
   halfjaarlijkse herinnering per klant is bijna gratis omzet.

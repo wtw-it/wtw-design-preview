@@ -2,7 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { SEED } from './seed';
-import type { CompanyId, ErpData, Offerte, Order, Product } from './types';
+import type { CompanyId, ErpData, Factuur, Offerte, Order, Product } from './types';
 
 /**
  * Client-side store. Houdt de ERP-data vast en bewaart wijzigingen in
@@ -25,6 +25,8 @@ interface ErpContext {
     updateOfferte: (id: string, patch: Partial<Offerte>) => void;
     addOrder: (o: Order) => void;
     updateOrder: (id: string, patch: Partial<Order>) => void;
+    addFactuur: (f: Factuur) => void;
+    updateFactuur: (id: string, patch: Partial<Factuur>) => void;
     updateProduct: (id: string, patch: Partial<Product>) => void;
     reset: () => void;
 }
@@ -39,6 +41,7 @@ function scope(data: ErpData, company: CompanyId): ErpData {
         klanten: data.klanten.filter((x) => x.company === company),
         offertes: data.offertes.filter((x) => x.company === company),
         orders: data.orders.filter((x) => x.company === company),
+        facturen: data.facturen.filter((x) => x.company === company),
         koppelingen: data.koppelingen.filter((x) => x.company === company),
     };
 }
@@ -51,7 +54,9 @@ export function ErpProvider({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         try {
             const raw = localStorage.getItem(STORAGE_KEY);
-            if (raw) setData(JSON.parse(raw) as ErpData);
+            // Ontbrekende sleutels aanvullen vanuit de seed, zodat opslag van
+            // een oudere versie (zonder bijv. facturen) blijft werken.
+            if (raw) setData({ ...SEED, ...(JSON.parse(raw) as Partial<ErpData>) });
             const c = localStorage.getItem(COMPANY_KEY) as CompanyId | null;
             if (c === 'wtw-winkel' || c === 'wtwstore') setCompanyState(c);
         } catch {
@@ -59,13 +64,19 @@ export function ErpProvider({ children }: { children: React.ReactNode }) {
         }
     }, []);
 
-    const persist = useCallback((next: ErpData) => {
-        setData(next);
-        try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-        } catch {
-            // Quota vol of privé-modus — de sessie blijft gewoon werken.
-        }
+    // Functionele update: meerdere mutaties in dezelfde klik (bijv. factuur
+    // toevoegen én de order op 'gefactureerd' zetten) stapelen netjes in
+    // plaats van elkaar te overschrijven via een stale closure.
+    const persist = useCallback((wijzig: (prev: ErpData) => ErpData) => {
+        setData((prev) => {
+            const next = wijzig(prev);
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+            } catch {
+                // Quota vol of privé-modus — de sessie blijft gewoon werken.
+            }
+            return next;
+        });
     }, []);
 
     const setCompany = useCallback((c: CompanyId) => {
@@ -83,24 +94,30 @@ export function ErpProvider({ children }: { children: React.ReactNode }) {
             company,
             setCompany,
             scoped: scope(data, company),
-            addOfferte: (o) => persist({ ...data, offertes: [o, ...data.offertes] }),
+            addOfferte: (o) => persist((d) => ({ ...d, offertes: [o, ...d.offertes] })),
             updateOfferte: (id, patch) =>
-                persist({
-                    ...data,
-                    offertes: data.offertes.map((x) => (x.id === id ? { ...x, ...patch } : x)),
-                }),
-            addOrder: (o) => persist({ ...data, orders: [o, ...data.orders] }),
+                persist((d) => ({
+                    ...d,
+                    offertes: d.offertes.map((x) => (x.id === id ? { ...x, ...patch } : x)),
+                })),
+            addOrder: (o) => persist((d) => ({ ...d, orders: [o, ...d.orders] })),
             updateOrder: (id, patch) =>
-                persist({
-                    ...data,
-                    orders: data.orders.map((x) => (x.id === id ? { ...x, ...patch } : x)),
-                }),
+                persist((d) => ({
+                    ...d,
+                    orders: d.orders.map((x) => (x.id === id ? { ...x, ...patch } : x)),
+                })),
+            addFactuur: (f) => persist((d) => ({ ...d, facturen: [f, ...d.facturen] })),
+            updateFactuur: (id, patch) =>
+                persist((d) => ({
+                    ...d,
+                    facturen: d.facturen.map((x) => (x.id === id ? { ...x, ...patch } : x)),
+                })),
             updateProduct: (id, patch) =>
-                persist({
-                    ...data,
-                    producten: data.producten.map((x) => (x.id === id ? { ...x, ...patch } : x)),
-                }),
-            reset: () => persist(SEED),
+                persist((d) => ({
+                    ...d,
+                    producten: d.producten.map((x) => (x.id === id ? { ...x, ...patch } : x)),
+                })),
+            reset: () => persist(() => SEED),
         }),
         [data, company, persist, setCompany],
     );

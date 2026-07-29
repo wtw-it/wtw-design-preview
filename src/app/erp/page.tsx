@@ -9,6 +9,7 @@ import {
     ClipboardList,
     FileText,
     MessageSquare,
+    Receipt,
     Warehouse,
 } from 'lucide-react';
 import { useErp } from '@/lib/erp/store';
@@ -39,6 +40,8 @@ export default function Dashboard() {
     const laag = scoped.producten.filter((p) => p.categorie !== 'arbeid' && p.voorraad <= p.minVoorraad);
     const vandaag = new Date().toISOString().slice(0, 10);
     const ritten = scoped.orders.filter((o) => o.planning === vandaag);
+    const openFacturen = scoped.facturen.filter((f) => f.status === 'verstuurd');
+    const openFactuurBedrag = openFacturen.reduce((s, f) => s + totalen(f.regels).incl, 0);
 
     const datum = new Date().toLocaleDateString('nl-NL', {
         weekday: 'long',
@@ -96,10 +99,10 @@ export default function Dashboard() {
                     icon={Warehouse}
                 />
                 <Stat
-                    label="artikelen"
-                    waarde={String(scoped.producten.length)}
-                    hint={`${scoped.leveranciers.length} leveranciers`}
-                    icon={Boxes}
+                    label="openstaand"
+                    waarde={String(openFacturen.length)}
+                    hint={`${euro(openFactuurBedrag)} te ontvangen`}
+                    icon={Receipt}
                 />
             </div>
 

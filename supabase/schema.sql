@@ -11,13 +11,15 @@ create type klant_bron  as enum ('webshop', 'offerte', 'telefoon', 'import');
 create type offerte_status as enum ('concept', 'verstuurd', 'akkoord', 'afgewezen', 'verlopen');
 create type order_status   as enum ('nieuw', 'ingepland', 'besteld', 'onderweg',
                                     'geleverd', 'gemonteerd', 'gefactureerd', 'geannuleerd');
+create type factuur_status as enum ('concept', 'verstuurd', 'betaald', 'vervallen');
 
 create table companies (
     id     company_id primary key,
     naam   text not null,
     domein text not null,
     kvk    text,
-    btw    text
+    btw    text,
+    iban   text
 );
 
 -- Wie mag welk bedrijf zien. Basis voor alle RLS-policies hieronder.
@@ -145,6 +147,33 @@ create table order_regels (
 );
 create index on order_regels (order_id);
 
+create table facturen (
+    id          uuid primary key default gen_random_uuid(),
+    company     company_id not null references companies(id),
+    nummer      text not null,
+    klant_id    uuid not null references klanten(id),
+    order_id    uuid references orders(id) on delete set null,
+    status      factuur_status not null default 'concept',
+    datum       date not null default current_date,
+    vervaldatum date not null default (current_date + 14),
+    betaald_op  date,
+    created_at  timestamptz not null default now(),
+    unique (company, nummer)
+);
+create index on facturen (company, status);
+
+create table factuur_regels (
+    id           uuid primary key default gen_random_uuid(),
+    factuur_id   uuid not null references facturen(id) on delete cascade,
+    volgorde     int  not null default 0,
+    product_id   uuid references producten(id) on delete set null,
+    omschrijving text not null,
+    aantal       numeric(10,2) not null,
+    stukprijs    numeric(10,2) not null,
+    btw_tarief   int not null default 21 check (btw_tarief in (0, 9, 21))
+);
+create index on factuur_regels (factuur_id);
+
 -- Webshop-koppeling per bedrijf. Sleutels staan NIET hier maar in de
 -- omgeving van de server (zie .env.example).
 create table koppelingen (
@@ -185,6 +214,8 @@ alter table koppelingen   enable row level security;
 alter table sync_log      enable row level security;
 alter table offerte_regels enable row level security;
 alter table order_regels   enable row level security;
+alter table facturen       enable row level security;
+alter table factuur_regels enable row level security;
 
 create policy company_scope on producten
     using (heeft_toegang(company)) with check (heeft_toegang(company));
@@ -198,12 +229,19 @@ create policy company_scope on koppelingen
     using (heeft_toegang(company)) with check (heeft_toegang(company));
 create policy company_scope on sync_log
     using (heeft_toegang(company)) with check (heeft_toegang(company));
+create policy company_scope on facturen
+    using (heeft_toegang(company)) with check (heeft_toegang(company));
 
 -- Regels erven de toegang van hun kop.
 create policy via_offerte on offerte_regels using (
     exists (select 1 from offertes o where o.id = offerte_id and heeft_toegang(o.company))
 ) with check (
     exists (select 1 from offertes o where o.id = offerte_id and heeft_toegang(o.company))
+);
+create policy via_factuur on factuur_regels using (
+    exists (select 1 from facturen f where f.id = factuur_id and heeft_toegang(f.company))
+) with check (
+    exists (select 1 from facturen f where f.id = factuur_id and heeft_toegang(f.company))
 );
 create policy via_order on order_regels using (
     exists (select 1 from orders o where o.id = order_id and heeft_toegang(o.company))

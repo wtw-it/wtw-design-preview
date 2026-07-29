@@ -2,6 +2,7 @@ import type {
     Bezorger,
     Company,
     ErpData,
+    Factuur,
     Klant,
     Koppeling,
     Leverancier,
@@ -20,16 +21,20 @@ export const COMPANIES: Company[] = [
         id: 'wtw-winkel',
         naam: 'WTW-Winkel B.V.',
         domein: 'wtw-winkel.nl',
+        // TODO: echte KvK/btw/IBAN invullen zodra aangeleverd
         kvk: '00000000',
         btw: 'NL000000000B01',
+        iban: 'NL00 BANK 0000 0000 00',
         accent: '#10B981',
     },
     {
         id: 'wtwstore',
         naam: 'WTW Store B.V.',
         domein: 'wtwstore.com',
+        // TODO: echte KvK/btw/IBAN invullen zodra aangeleverd
         kvk: '00000000',
         btw: 'NL000000000B01',
+        iban: 'NL00 BANK 0000 0000 00',
         accent: '#0EA5E9',
     },
 ];
@@ -232,6 +237,23 @@ export const ORDERS: Order[] = [
     },
 ];
 
+export const FACTUREN: Factuur[] = [
+    {
+        id: 'fac-001',
+        company: 'wtwstore',
+        nummer: 'WS-F-2026-0087',
+        klantId: 'kln-003',
+        orderId: null,
+        status: 'betaald',
+        datum: '2026-07-10',
+        vervaldatum: '2026-07-24',
+        betaaldOp: '2026-07-12',
+        regels: [
+            { productId: 'prd-008', omschrijving: 'Filterset G4 (2 st.)', aantal: 1, stukprijs: 24.95, btwTarief: 21 },
+        ],
+    },
+];
+
 export const KOPPELINGEN: Koppeling[] = [
     {
         company: 'wtw-winkel',
@@ -258,5 +280,6 @@ export const SEED: ErpData = {
     klanten: KLANTEN,
     offertes: OFFERTES,
     orders: ORDERS,
+    facturen: FACTUREN,
     koppelingen: KOPPELINGEN,
 };

@@ -13,6 +13,7 @@ export interface Company {
     domein: string;
     kvk: string;
     btw: string;
+    iban: string;
     /** Basiskleur voor de bedrijfs-switch in de UI */
     accent: string;
 }
@@ -137,6 +138,23 @@ export interface Order {
     wooId: number | null;
 }
 
+export type FactuurStatus = 'concept' | 'verstuurd' | 'betaald' | 'vervallen';
+
+export interface Factuur {
+    id: string;
+    company: CompanyId;
+    nummer: string;
+    klantId: string;
+    /** Order waaruit de factuur is ontstaan */
+    orderId: string | null;
+    status: FactuurStatus;
+    datum: string;
+    vervaldatum: string;
+    regels: OfferteRegel[];
+    /** Datum waarop betaling binnenkwam */
+    betaaldOp: string | null;
+}
+
 export interface Koppeling {
     company: CompanyId;
     platform: 'woocommerce';
@@ -159,6 +177,7 @@ export interface ErpData {
     klanten: Klant[];
     offertes: Offerte[];
     orders: Order[];
+    facturen: Factuur[];
     koppelingen: Koppeling[];
 }
 
