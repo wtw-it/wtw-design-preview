@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Receipt } from 'lucide-react';
+import { useVandaag, vandaagIso } from '@/lib/erp/klok';
 import { COMPANIES } from '@/lib/erp/seed';
 import { useErp } from '@/lib/erp/store';
 import { euro, totalen, type FactuurStatus, type Order } from '@/lib/erp/types';
@@ -28,7 +29,8 @@ export default function Facturen() {
     const [open, setOpen] = useState<string | null>(null);
 
     const bedrijf = COMPANIES.find((c) => c.id === company)!;
-    const vandaag = new Date().toISOString().slice(0, 10);
+    // Voor weergave (over-termijn): null tot na de mount, zie klok.ts.
+    const vandaag = useVandaag() ?? '';
 
     // Orders die klaar zijn voor facturatie: geleverd of gemonteerd, nog niet gefactureerd.
     const teFactureren = scoped.orders.filter(
@@ -40,9 +42,9 @@ export default function Facturen() {
     const openstaand = scoped.facturen
         .filter((f) => f.status === 'verstuurd')
         .reduce((s, f) => s + totalen(f.regels).incl, 0);
-    const overTijd = scoped.facturen.filter(
-        (f) => f.status === 'verstuurd' && f.vervaldatum < vandaag,
-    );
+    const overTijd = vandaag
+        ? scoped.facturen.filter((f) => f.status === 'verstuurd' && f.vervaldatum < vandaag)
+        : [];
 
     function maakFactuur(order: Order) {
         const prefix = company === 'wtw-winkel' ? 'WW-F' : 'WS-F';
@@ -56,7 +58,7 @@ export default function Facturen() {
             klantId: order.klantId,
             orderId: order.id,
             status: 'concept',
-            datum: vandaag,
+            datum: vandaagIso(),
             vervaldatum: verval.toISOString().slice(0, 10),
             regels: order.regels,
             betaaldOp: null,
@@ -67,7 +69,7 @@ export default function Facturen() {
     function statusDoor(id: string, naar: FactuurStatus) {
         updateFactuur(id, {
             status: naar,
-            ...(naar === 'betaald' ? { betaaldOp: vandaag } : {}),
+            ...(naar === 'betaald' ? { betaaldOp: vandaagIso() } : {}),
         });
     }
 
@@ -134,7 +136,7 @@ export default function Facturen() {
                 <Table kolommen={['Nummer', 'Klant', 'Datum', 'Vervalt', 'Status', 'Incl. btw', '']}>
                     {scoped.facturen.map((f) => {
                         const klant = scoped.klanten.find((k) => k.id === f.klantId);
-                        const laat = f.status === 'verstuurd' && f.vervaldatum < vandaag;
+                        const laat = !!vandaag && f.status === 'verstuurd' && f.vervaldatum < vandaag;
                         const actie = VOLGENDE[f.status];
                         return (
                             <tr

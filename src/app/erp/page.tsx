@@ -12,12 +12,14 @@ import {
     Receipt,
     Warehouse,
 } from 'lucide-react';
+import { useNu } from '@/lib/erp/klok';
 import { useErp } from '@/lib/erp/store';
 import { euro, totalen } from '@/lib/erp/types';
 import { Badge, Card, Sectie, Stat, Table, Td } from '@/components/erp/ui';
 
-function groet(): string {
-    const u = new Date().getHours();
+function groet(nu: Date | null): string {
+    if (!nu) return 'Welkom';
+    const u = nu.getHours();
     if (u < 6) return 'Goedenacht';
     if (u < 12) return 'Goedemorgen';
     if (u < 18) return 'Goedemiddag';
@@ -33,21 +35,20 @@ const SNEL = [
 
 export default function Dashboard() {
     const { scoped } = useErp();
+    const nu = useNu();
 
     const openOffertes = scoped.offertes.filter((o) => o.status === 'verstuurd' || o.status === 'concept');
     const openWaarde = openOffertes.reduce((s, o) => s + totalen(o.regels).incl, 0);
     const teDoen = scoped.orders.filter((o) => o.status !== 'gefactureerd' && o.status !== 'geannuleerd');
     const laag = scoped.producten.filter((p) => p.categorie !== 'arbeid' && p.voorraad <= p.minVoorraad);
-    const vandaag = new Date().toISOString().slice(0, 10);
-    const ritten = scoped.orders.filter((o) => o.planning === vandaag);
+    const vandaag = nu ? nu.toISOString().slice(0, 10) : null;
+    const ritten = vandaag ? scoped.orders.filter((o) => o.planning === vandaag) : [];
     const openFacturen = scoped.facturen.filter((f) => f.status === 'verstuurd');
     const openFactuurBedrag = openFacturen.reduce((s, f) => s + totalen(f.regels).incl, 0);
 
-    const datum = new Date().toLocaleDateString('nl-NL', {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-    });
+    const datum = nu
+        ? nu.toLocaleDateString('nl-NL', { weekday: 'long', day: 'numeric', month: 'long' })
+        : '\u00A0';
 
     return (
         <>
@@ -57,7 +58,7 @@ export default function Dashboard() {
                     <div className="text-[11px] font-semibold tracking-[0.14em] uppercase text-white/60">
                         {datum}
                     </div>
-                    <h1 className="text-[26px] font-bold text-white mt-1.5">{groet()} WTW</h1>
+                    <h1 className="text-[26px] font-bold text-white mt-1.5">{groet(nu)} WTW</h1>
                     <p className="text-white/80 text-sm mt-1.5 max-w-md">
                         Op je lijst: {openOffertes.length}{' '}
                         {openOffertes.length === 1 ? 'open offerte' : 'open offertes'} en {teDoen.length}{' '}

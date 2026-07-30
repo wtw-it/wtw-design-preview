@@ -1,32 +1,38 @@
 'use client';
 
 import { CalendarClock, MapPin, Truck } from 'lucide-react';
+import { useVandaag } from '@/lib/erp/klok';
 import { useErp } from '@/lib/erp/store';
 import { euro, totalen } from '@/lib/erp/types';
 import { Badge, Card, Leeg, PageHeader, Sectie } from '@/components/erp/ui';
 
 /** Toont de eerstvolgende 14 dagen; orders zonder datum staan apart. */
-function komendeDagen(n: number): string[] {
-    const start = new Date();
+function komendeDagen(vanaf: string, n: number): string[] {
+    const start = new Date(vanaf + 'T00:00:00');
     return Array.from({ length: n }, (_, i) => {
         const d = new Date(start.getTime() + i * 864e5);
         return d.toISOString().slice(0, 10);
     });
 }
 
-function dagLabel(iso: string): string {
-    const d = new Date(iso + 'T00:00:00');
-    const vandaag = new Date().toISOString().slice(0, 10);
-    const morgen = new Date(Date.now() + 864e5).toISOString().slice(0, 10);
-    if (iso === vandaag) return 'Vandaag';
-    if (iso === morgen) return 'Morgen';
-    return d.toLocaleDateString('nl-NL', { weekday: 'long', day: 'numeric', month: 'long' });
+function dagLabel(iso: string, vandaag: string): string {
+    const dagen = komendeDagen(vandaag, 2);
+    if (iso === dagen[0]) return 'Vandaag';
+    if (iso === dagen[1]) return 'Morgen';
+    return new Date(iso + 'T00:00:00').toLocaleDateString('nl-NL', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+    });
 }
 
 export default function Planning() {
     const { scoped, updateOrder } = useErp();
+    const vandaag = useVandaag();
 
-    const dagen = komendeDagen(14).filter((d) => scoped.orders.some((o) => o.planning === d));
+    const dagen = vandaag
+        ? komendeDagen(vandaag, 14).filter((d) => scoped.orders.some((o) => o.planning === d))
+        : [];
     const ongepland = scoped.orders.filter(
         (o) => !o.planning && o.status !== 'gefactureerd' && o.status !== 'geannuleerd',
     );
@@ -103,7 +109,7 @@ export default function Planning() {
                                 <div className="flex items-center gap-2 mb-2">
                                     <CalendarClock size={15} strokeWidth={1.75} className="text-brand-600" />
                                     <span className="text-sm font-semibold text-ink-900 first-letter:uppercase">
-                                        {dagLabel(dag)}
+                                        {vandaag ? dagLabel(dag, vandaag) : dag}
                                     </span>
                                     <span className="text-xs text-ink-400">
                                         {opDag.length} {opDag.length === 1 ? 'rit' : 'ritten'}
