@@ -33,3 +33,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Handoff-map: build-artefacten van de losse modules
+handoff/**/dist/
